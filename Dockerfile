@@ -17,7 +17,7 @@ WORKDIR /var/app
 
 COPY . .
 
-RUN V=1 PREFIX=/var/app make generate
+RUN V=1 PREFIX=/var/app make -j 1 generate
 RUN V=1 make bin/manager
 
 FROM gcr.io/distroless/static:latest
@@ -28,8 +28,3 @@ COPY --from=builder /var/app/bin/manager /manager
 
 WORKDIR /
 ENTRYPOINT ["/manager"]
-
-
-# FROM gcr.io/distroless/static:latest
-# ARG BINPATH="docker/bin/manager"
-# COPY $BINPATH .

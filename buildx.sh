@@ -13,8 +13,8 @@ platforms="linux/amd64,linux/arm,linux/arm64"
 
 # `buildx` uses named _builder_ instances configured for specific platforms.
 # This script creates a `skaffold-builder` as required.
-if ! docker buildx inspect skaffold-builder-step-issuer >/dev/null 2>&1; then
-  docker buildx create --name skaffold-builder-step-issuer --platform $platforms
+if ! docker buildx inspect skaffold-builder >/dev/null 2>&1; then
+  docker buildx create --name skaffold-builder --platform $platforms
 fi
 
 # Building for multiple platforms requires pushing to a registry
@@ -26,4 +26,4 @@ else
 fi
 
 set -x      # show the command-line
-docker buildx build --builder skaffold-builder-step-issuer --tag $IMAGE $args "$BUILD_CONTEXT"
+docker buildx build --builder skaffold-builder --tag $IMAGE $args "$BUILD_CONTEXT"
