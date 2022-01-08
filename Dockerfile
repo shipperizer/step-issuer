@@ -17,8 +17,8 @@ WORKDIR /var/app
 
 COPY . .
 
-RUN V=1 PREFIX=/var/app make -j 1 generate
-RUN V=1 make bin/manager
+# RUN V=1 PREFIX=/var/app make -j 1 generate
+RUN go build -v -o /var/app/bin/manager github.com/smallstep/step-issuer
 
 FROM gcr.io/distroless/static:latest
 
