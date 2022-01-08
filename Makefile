@@ -16,6 +16,9 @@ else
 GOBIN=$(shell go env GOBIN)
 endif
 
+GOOS?=linux
+GOARCH?=amd64
+
 all: lint test build
 
 .PHONY: all
@@ -72,7 +75,8 @@ test: generate fmt vet manifests
 
 DATE    := $(shell date -u '+%Y-%m-%d %H:%M UTC')
 LDFLAGS := -ldflags='-w -X "main.Version=$(VERSION)" -X "main.BuildTime=$(DATE)"'
-GOFLAGS := CGO_ENABLED=0
+GOFLAGS := CGO_ENABLED=0 GOOS=$(GOOS) GOARCH=$(GOARCH)
+
 
 build: $(PREFIX)bin/$(BINNAME)
 	@echo "Build Complete!"

@@ -1,0 +1,12 @@
+apiVersion: skaffold/v2beta26
+kind: Config
+build:
+  artifacts:
+  - image: ghcr.io/shipperizer/step-issuer
+    custom:
+      buildCommand: ./buildx.sh
+      dependencies:
+        dockerfile:
+          path: Dockerfile
+  local:
+    push: true
