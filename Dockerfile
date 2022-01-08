@@ -9,8 +9,6 @@ ARG TARGETOS
 ARG TARGETARCH
 
 ENV GOOS=$TARGETOS
-ENV GOARCH=$TARGETARCH
-ENV GO111MODULE=on
 ENV CGO_ENABLED=0
 RUN apt-get update
 
@@ -18,7 +16,8 @@ WORKDIR /var/app
 
 COPY . .
 
-RUN PREFIX=/var/app make generate bin/manager
+RUN V=1 PREFIX=/var/app make generate
+RUN V=1 make bin/manager
 
 FROM gcr.io/distroless/static:latest
 
