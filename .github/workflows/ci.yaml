@@ -27,4 +27,4 @@ jobs:
         run: "git status"
       - name: Build docker image
         run: |
-          skaffold build
+          skaffold build --cache-artifacts=false
