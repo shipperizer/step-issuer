@@ -18,13 +18,13 @@ WORKDIR /var/app
 
 COPY . .
 
-RUN make build
+RUN PREFIX=/var/app make generate bin/manager
 
 FROM gcr.io/distroless/static:latest
 
 LABEL org.opencontainers.image.source=https://github.com/shipperizer/step-issuer
 
-COPY --from=builder /var/app/docker/bin/manager /manager
+COPY --from=builder /var/app/bin/manager /manager
 
 WORKDIR /
 ENTRYPOINT ["/manager"]
